@@ -1,12 +1,12 @@
 struct DSU{
     vector<int> parent, sz;
 
-    DSU(int n) : parent(n + 1), sz(n + 1) {};
-
-    void make_set(int v) {
-        parent[v] = v;
-        sz[v] = 1;
-    }
+    DSU(int n) : parent(n + 1), sz(n + 1) {
+        FOR(i, 1, n) {
+            parent[i] = i;
+            sz[i] = 1;
+        }
+    };
 
     int find_set(int v) {
         return v == parent[v] ? v : parent[v] = find_set(parent[v]);
@@ -33,22 +33,22 @@ struct Edge {
 
 struct MST
 {
-	vector<Edge> edge;
-	DSU dsu;
+    vector<Edge> edge;
+    DSU dsu;
 
-	MST(int V, int E) : dsu(V), edge(E) {};
+    MST(int V, int E) : dsu(V), edge(E) {};
 
-	int result(int V, int E) {
-		FOR(i, 1, V) dsu.make_set(i);
-		sort(ALL(edge));
+    int result(int V, int E) {
+        FOR(i, 1, V) dsu.make_set(i);
+        sort(ALL(edge));
 
-		int cost = 0;
-		for(Edge e : edge) {
-			if(dsu.join_sets(e.u, e.v)) {
-				cost += e.w;
-			}
-		}
+        int cost = 0;
+        for(Edge e : edge) {
+            if(dsu.join_sets(e.u, e.v)) {
+                cost += e.w;
+            }
+        }
 
-		return cost;
-	}
+        return cost;
+    }
 };
