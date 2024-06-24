@@ -1,12 +1,12 @@
 struct DSU{
     vector<int> parent, sz;
 
-    DSU(int n) : parent(n + 1), sz(n + 1) {};
-
-    void make_set(int v) {
-        parent[v] = v;
-        sz[v] = 1;
-    }
+    DSU(int n) : parent(n + 1), sz(n + 1) {
+        FOR(i, 1, n) {
+            parent[i] = i;
+            sz[i] = 1;
+        }
+    };
 
     int find_set(int v) {
         return v == parent[v] ? v : parent[v] = find_set(parent[v]);
