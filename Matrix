@@ -1,6 +1,6 @@
 const int mod;
 
-struct MATRIX_MUL {
+struct Matrix {
     vector <vector <int> > data;
 
     int row() const { return data.size(); }
