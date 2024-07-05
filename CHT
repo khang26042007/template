@@ -1,0 +1,44 @@
+struct line {
+	int a,b,p;
+	int val(int x) {
+		return a*x+b;
+	}
+	bool operator < (line other) {
+		return a<other.a;
+	}
+	bool operator < (int other) {
+		return p<other;
+	}
+};
+
+struct CHT {
+	vector<line> x;
+
+	int div(int a,int b){
+        return a/b-((a^b)<0 && a%b);
+    }
+
+	bool isect (line &l, line other) {
+		if(l.a==other.a) {
+			if(l.b>other.b) l.p=oo;
+			else l.p=-oo;
+		}
+		else l.p = div(other.b - l.b, l.a - other.a);
+
+		return l.p >= other.p;
+	}
+
+	void add(line l) {
+		if(!x.empty()) isect(x.back(),l);
+		while(x.sz>=2 and x[x.sz-2].p >= x[x.sz-1].p) {
+			x.pop_back();
+			isect(x.back(),l);
+		}
+		x.pb(l);
+	}
+
+	int query(int v) {
+		auto l = *lower_bound(x.begin(), x.end(), v);
+		return l.val(v);
+	}
+};
